@@ -1,0 +1,17 @@
+[project]
+name = "imperial-complab-monte-carlo-simulations-of-a-2d-ising-model"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["python_script"]
+pythonpath = ["python_script"]

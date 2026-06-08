@@ -411,7 +411,7 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 8: estimate Curie temperature`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `18dba9697e2d63d9e1194c10d211ce93869303c1`
 
 Draft-writing notes:
 - Use the reference heat-capacity scaling fit as the strongest final numerical
@@ -421,3 +421,80 @@ Draft-writing notes:
   runs, coarse peak windows, and finite-size effects.
 - Mention that susceptibility peaks are noisier in these runs and provide a
   less accurate extrapolation than heat-capacity peaks.
+
+## Plotting Polish Pass
+
+PDF name:
+- Applies to report figures from Sections 2-8.
+
+Task labels completed:
+- Refactored plotting style into shared helpers.
+- Added plotting-only renderer for all report figures.
+- Regenerated polished PNG figures from existing data.
+- Avoided simulation and benchmark reruns because all source data were present
+  and valid.
+
+Code/data/figure files produced or changed:
+- `python_script/ILplot_style.py`
+- `python_script/ILrender_plots.py`
+- `pyproject.toml` now provides valid project metadata, Python version
+  compatibility, runtime dependencies, dev dependency metadata, and pytest
+  configuration.
+- Updated plotting/data scripts with shared figure saving and `--skip-render`
+  where applicable:
+  - `python_script/ILtemperature_scan.py`
+  - `python_script/ILbenchmark.py`
+  - `python_script/ILsystem_size_analysis.py`
+  - `python_script/ILresponse_analysis.py`
+  - `python_script/ILcurie_analysis.py`
+- Regenerated PNG figures in `outputs/figures/`:
+  - `section_2_energy_magnetisation_check`
+  - `section_3_low_temperature_equilibrium`
+  - `section_4_timing_comparison`
+  - `section_5_8x8_temperature_dependence`
+  - `section_5_8x8_equilibration_T2p3`
+  - `section_6_2x2_temperature_dependence`
+  - `section_6_4x4_temperature_dependence`
+  - `section_6_8x8_temperature_dependence`
+  - `section_6_16x16_temperature_dependence`
+  - `section_6_32x32_temperature_dependence`
+  - `section_6_energy_vs_temperature_by_size`
+  - `section_6_magnetisation_vs_temperature_by_size`
+  - `section_7_heat_capacity_by_size`
+  - `section_7_susceptibility_by_size`
+  - `section_8_8x8_own_vs_reference`
+  - `section_8_reference_comparison_heat_capacity_all_sizes`
+  - `section_8_32x32_peak_fits`
+  - `section_8_curie_scaling`
+- `outputs/logs/plot_polish_validation.txt`
+- `outputs/logs/plot_polish_file_validation.txt`
+
+Commands run:
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILrender_plots.py --all`
+- `python3 -m pytest python_script`
+- `rg --files -g '*.svg'`
+- Figure validation script checking PNG/SVG counts and non-empty files.
+- Visual inspection of:
+  - `outputs/figures/section_2_energy_magnetisation_check.png`
+  - `outputs/figures/section_3_low_temperature_equilibrium.png`
+  - `outputs/figures/section_4_timing_comparison.png`
+
+Key numerical results:
+- Renderer regenerated `18` PNG files.
+- Final validation found `18` PNG files, `0` SVG files, and no empty figure
+  files.
+- `python3 -m pytest python_script`: 9 tests passed.
+
+Validation outcome:
+- All regenerated PNG figures exist and are non-empty.
+- Section 2 now uses deterministic validation lattices with pass/fail tables.
+- Section 3 now shows the final lattice, energy trace, magnetisation trace, and
+  an equilibration marker.
+- Section 4 now has readable method labels and speedup annotations relative to
+  the loop baseline.
+
+Commit reference:
+- No commit was requested for this plotting-polish pass.
+
+Draft-writing notes:
+- Use the regenerated PNGs for report drafting.

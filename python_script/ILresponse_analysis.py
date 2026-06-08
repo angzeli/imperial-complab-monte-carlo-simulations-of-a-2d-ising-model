@@ -5,6 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ILplot_style import save_figure
+
 
 OUTPUT_DIR = Path("outputs")
 
@@ -72,8 +74,7 @@ def plot_response(sizes, y_key, yerr_key, ylabel, title, figure_path):
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     ax.legend(title="Lattice")
-    fig.savefig(figure_path, dpi=200)
-    plt.close(fig)
+    save_figure(fig, figure_path)
 
 
 def main(args):
@@ -81,28 +82,30 @@ def main(args):
     (OUTPUT_DIR / "figures").mkdir(parents=True, exist_ok=True)
     rows = compile_response_table(args.sizes)
     table = write_response_table(rows)
-    plot_response(
-        args.sizes,
-        "C_per_spin_mean",
-        "C_per_spin_stderr",
-        "C / spin",
-        "Heat capacity from energy variance",
-        OUTPUT_DIR / "figures" / "section_7_heat_capacity_by_size.png",
-    )
-    plot_response(
-        args.sizes,
-        "chi_per_spin_mean",
-        "chi_per_spin_stderr",
-        "chi / spin",
-        "Magnetic susceptibility from magnetisation variance",
-        OUTPUT_DIR / "figures" / "section_7_susceptibility_by_size.png",
-    )
+    if not args.skip_render:
+        plot_response(
+            args.sizes,
+            "C_per_spin_mean",
+            "C_per_spin_stderr",
+            "C / spin",
+            "Heat capacity from energy variance",
+            OUTPUT_DIR / "figures" / "section_7_heat_capacity_by_size.png",
+        )
+        plot_response(
+            args.sizes,
+            "chi_per_spin_mean",
+            "chi_per_spin_stderr",
+            "chi / spin",
+            "Magnetic susceptibility from magnetisation variance",
+            OUTPUT_DIR / "figures" / "section_7_susceptibility_by_size.png",
+        )
     print(f"Wrote {table}")
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Plot Ising response functions.")
     parser.add_argument("--sizes", type=int, nargs="+", default=[2, 4, 8, 16, 32])
+    parser.add_argument("--skip-render", action="store_true")
     return parser.parse_args()
 
 

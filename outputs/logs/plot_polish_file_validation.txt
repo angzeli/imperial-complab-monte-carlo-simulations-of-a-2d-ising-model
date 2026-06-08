@@ -1,0 +1,4 @@
+Plot polish figure validation
+png_count: 18
+svg_count: 0
+empty_png_files: 0

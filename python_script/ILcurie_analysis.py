@@ -5,6 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ILplot_style import save_figure
+
 
 OUTPUT_DIR = Path("outputs")
 EXACT_TC = 2.0 / np.log(1.0 + np.sqrt(2.0))
@@ -149,8 +151,7 @@ def plot_8x8_comparison():
         ax.legend()
     axes[2].set_xlabel("Temperature")
     fig.suptitle("8x8 own data versus reference data")
-    fig.savefig(OUTPUT_DIR / "figures" / "section_8_8x8_own_vs_reference.png", dpi=200)
-    plt.close(fig)
+    save_figure(fig, OUTPUT_DIR / "figures" / "section_8_8x8_own_vs_reference.png")
 
 
 def plot_all_size_reference_comparison(sizes):
@@ -164,11 +165,10 @@ def plot_all_size_reference_comparison(sizes):
         ax.legend(loc="upper right")
     axes[-1].set_xlabel("Temperature")
     fig.suptitle("Heat-capacity comparison for all lattice sizes")
-    fig.savefig(
+    save_figure(
+        fig,
         OUTPUT_DIR / "figures" / "section_8_reference_comparison_heat_capacity_all_sizes.png",
-        dpi=200,
     )
-    plt.close(fig)
 
 
 def plot_peak_fit_example(fit_cache):
@@ -186,8 +186,7 @@ def plot_peak_fit_example(fit_cache):
         ax.legend()
     axes[1].set_xlabel("Temperature")
     fig.suptitle("32x32 critical-window polynomial peak fits")
-    fig.savefig(OUTPUT_DIR / "figures" / "section_8_32x32_peak_fits.png", dpi=200)
-    plt.close(fig)
+    save_figure(fig, OUTPUT_DIR / "figures" / "section_8_32x32_peak_fits.png")
 
 
 def plot_scaling(peak_table, scaling_table, sizes_for_scaling):
@@ -220,8 +219,7 @@ def plot_scaling(peak_table, scaling_table, sizes_for_scaling):
     ax.set_xlabel("1 / L")
     ax.set_ylabel("Fitted heat-capacity peak temperature")
     ax.legend()
-    fig.savefig(OUTPUT_DIR / "figures" / "section_8_curie_scaling.png", dpi=200)
-    plt.close(fig)
+    save_figure(fig, OUTPUT_DIR / "figures" / "section_8_curie_scaling.png")
 
 
 def main(args):
@@ -232,10 +230,11 @@ def main(args):
     scaling_table = scaling_rows(peak_table, args.scaling_sizes)
     write_csv(OUTPUT_DIR / "data" / "processed" / "section_8_peak_table.csv", peak_table)
     write_csv(OUTPUT_DIR / "data" / "processed" / "section_8_scaling_fit.csv", scaling_table)
-    plot_8x8_comparison()
-    plot_all_size_reference_comparison(args.sizes)
-    plot_peak_fit_example(fit_cache)
-    plot_scaling(peak_table, scaling_table, args.scaling_sizes)
+    if not args.skip_render:
+        plot_8x8_comparison()
+        plot_all_size_reference_comparison(args.sizes)
+        plot_peak_fit_example(fit_cache)
+        plot_scaling(peak_table, scaling_table, args.scaling_sizes)
 
     lines = [
         "Section 8 fit summary",
@@ -257,6 +256,7 @@ def parse_args():
     parser.add_argument("--sizes", type=int, nargs="+", default=[2, 4, 8, 16, 32])
     parser.add_argument("--scaling-sizes", type=int, nargs="+", default=[4, 8, 16, 32])
     parser.add_argument("--degree", type=int, default=4)
+    parser.add_argument("--skip-render", action="store_true")
     return parser.parse_args()
 
 

@@ -1,0 +1,23 @@
+Plot polish validation
+figure,exists,bytes
+outputs/figures/section_2_energy_magnetisation_check.png,True,127279
+outputs/figures/section_3_low_temperature_equilibrium.png,True,271532
+outputs/figures/section_4_timing_comparison.png,True,198607
+outputs/figures/section_5_8x8_temperature_dependence.png,True,255077
+outputs/figures/section_5_8x8_equilibration_T2p3.png,True,436059
+outputs/figures/section_6_2x2_temperature_dependence.png,True,279427
+outputs/figures/section_6_4x4_temperature_dependence.png,True,278414
+outputs/figures/section_6_8x8_temperature_dependence.png,True,255077
+outputs/figures/section_6_16x16_temperature_dependence.png,True,255585
+outputs/figures/section_6_32x32_temperature_dependence.png,True,254119
+outputs/figures/section_6_energy_vs_temperature_by_size.png,True,217161
+outputs/figures/section_6_magnetisation_vs_temperature_by_size.png,True,263246
+outputs/figures/section_7_heat_capacity_by_size.png,True,262726
+outputs/figures/section_7_susceptibility_by_size.png,True,238935
+outputs/figures/section_8_8x8_own_vs_reference.png,True,328172
+outputs/figures/section_8_reference_comparison_heat_capacity_all_sizes.png,True,465615
+outputs/figures/section_8_32x32_peak_fits.png,True,347932
+outputs/figures/section_8_curie_scaling.png,True,186030
+png_count,18
+svg_count,0
+all_nonempty,True

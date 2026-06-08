@@ -1,3 +1,4 @@
+import argparse
 import cProfile
 import csv
 import io
@@ -8,6 +9,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ILplot_style import save_figure
 from IsingLattice import IsingLattice
 
 
@@ -84,7 +86,7 @@ def time_repeats(label, repeats, operation):
     return rows
 
 
-def main():
+def main(args):
     np.random.seed(4004)
     (OUTPUT_DIR / "data" / "processed").mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "figures").mkdir(parents=True, exist_ok=True)
@@ -171,16 +173,16 @@ def main():
     summary_path = OUTPUT_DIR / "logs" / "section_4_timing_summary.txt"
     summary_path.write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
 
-    fig, ax = plt.subplots(figsize=(7.2, 4.2), constrained_layout=True)
-    x = np.arange(len(labels))
-    ax.bar(x, means, yerr=stds, color=["#6b7280", "#2563eb", "#059669"], capsize=4)
-    ax.set_xticks(x)
-    ax.set_xticklabels(labels, rotation=15, ha="right")
-    ax.set_ylabel("Seconds per trial move")
-    ax.set_yscale("log")
-    ax.set_title("Monte Carlo update timing comparison")
-    fig.savefig(OUTPUT_DIR / "figures" / "section_4_timing_comparison.png", dpi=200)
-    plt.close(fig)
+    if not args.skip_render:
+        fig, ax = plt.subplots(figsize=(7.2, 4.2), constrained_layout=True)
+        x = np.arange(len(labels))
+        ax.bar(x, means, yerr=stds, color=["#6b7280", "#2563eb", "#059669"], capsize=4)
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, rotation=15, ha="right")
+        ax.set_ylabel("Seconds per trial move")
+        ax.set_yscale("log")
+        ax.set_title("Monte Carlo update timing comparison")
+        save_figure(fig, OUTPUT_DIR / "figures" / "section_4_timing_comparison.png")
 
     profile = cProfile.Profile()
     np.random.seed(4400)
@@ -196,5 +198,11 @@ def main():
     print(summary_path.read_text())
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Benchmark Ising update paths.")
+    parser.add_argument("--skip-render", action="store_true")
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    main(parse_args())

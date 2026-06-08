@@ -5,6 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ILplot_style import save_figure
+
 
 OUTPUT_DIR = Path("outputs")
 
@@ -65,8 +67,7 @@ def plot_quantity(sizes, y_key, yerr_key, ylabel, figure_path):
     ax.set_xlabel("Temperature")
     ax.set_ylabel(ylabel)
     ax.legend(title="Lattice")
-    fig.savefig(figure_path, dpi=200)
-    plt.close(fig)
+    save_figure(fig, figure_path)
 
 
 def write_reference_inventory(sizes):
@@ -91,20 +92,21 @@ def main(args):
     (OUTPUT_DIR / "figures").mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "logs").mkdir(parents=True, exist_ok=True)
     table = write_compiled_table(args.sizes)
-    plot_quantity(
-        args.sizes,
-        "E_per_spin_mean",
-        "E_per_spin_stderr",
-        "E / spin",
-        OUTPUT_DIR / "figures" / "section_6_energy_vs_temperature_by_size.png",
-    )
-    plot_quantity(
-        args.sizes,
-        "abs_M_per_spin_mean",
-        "abs_M_per_spin_stderr",
-        "|M| / spin",
-        OUTPUT_DIR / "figures" / "section_6_magnetisation_vs_temperature_by_size.png",
-    )
+    if not args.skip_render:
+        plot_quantity(
+            args.sizes,
+            "E_per_spin_mean",
+            "E_per_spin_stderr",
+            "E / spin",
+            OUTPUT_DIR / "figures" / "section_6_energy_vs_temperature_by_size.png",
+        )
+        plot_quantity(
+            args.sizes,
+            "abs_M_per_spin_mean",
+            "abs_M_per_spin_stderr",
+            "|M| / spin",
+            OUTPUT_DIR / "figures" / "section_6_magnetisation_vs_temperature_by_size.png",
+        )
     inventory = write_reference_inventory(args.sizes)
     print(f"Wrote {table}")
     print(f"Wrote {inventory}")
@@ -113,6 +115,7 @@ def main(args):
 def parse_args():
     parser = argparse.ArgumentParser(description="Plot Ising system-size effects.")
     parser.add_argument("--sizes", type=int, nargs="+", default=[2, 4, 8, 16, 32])
+    parser.add_argument("--skip-render", action="store_true")
     return parser.parse_args()
 
 

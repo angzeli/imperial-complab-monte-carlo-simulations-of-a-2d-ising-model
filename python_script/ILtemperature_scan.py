@@ -6,6 +6,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
+from ILplot_style import save_figure
 from IsingLattice import IsingLattice
 
 
@@ -164,11 +165,10 @@ def plot_temperature_summary(size, summary_rows, figure_path):
     axes[2].set_ylabel("C / spin")
     axes[2].legend()
     fig.suptitle(f"{size}x{size} temperature dependence")
-    fig.savefig(figure_path, dpi=200)
-    plt.close(fig)
+    save_figure(fig, figure_path)
 
 
-def plot_equilibration(size, temp, seed, burn_in_cycles, production_cycles, figure_path, csv_path):
+def plot_equilibration(size, temp, seed, burn_in_cycles, production_cycles, figure_path, csv_path, render=True):
     np.random.seed(seed)
     il = prepare_lattice(size, burn_in_cycles=0)
     spins = size * size
@@ -185,6 +185,9 @@ def plot_equilibration(size, temp, seed, burn_in_cycles, production_cycles, figu
         + "\n",
         encoding="utf-8",
     )
+    if not render:
+        return
+
     cycles = np.array([row[0] for row in rows])
     energies = np.array([row[1] for row in rows])
     magnetisations = np.array([row[2] for row in rows])
@@ -203,8 +206,7 @@ def plot_equilibration(size, temp, seed, burn_in_cycles, production_cycles, figu
     axes[2].set_xlabel("Monte Carlo cycle")
     axes[2].set_ylabel("M / spin")
     axes[2].legend()
-    fig.savefig(figure_path, dpi=200)
-    plt.close(fig)
+    save_figure(fig, figure_path)
 
 
 def run_scan(args):
@@ -248,11 +250,12 @@ def run_scan(args):
         write_csv(generated / f"{size}x{size}_repeats.csv", repeat_rows)
         write_csv(processed / f"{size}x{size}_summary.csv", summary_rows)
         write_dat(generated / f"{size}x{size}.dat", summary_rows)
-        plot_temperature_summary(
-            size,
-            summary_rows,
-            figures / f"section_{args.section}_{size}x{size}_temperature_dependence.png",
-        )
+        if not args.skip_render:
+            plot_temperature_summary(
+                size,
+                summary_rows,
+                figures / f"section_{args.section}_{size}x{size}_temperature_dependence.png",
+            )
         elapsed = time.perf_counter() - start
         timing_lines.append(f"{size}x{size}_elapsed_seconds: {elapsed:.6f}")
         print(f"{size}x{size} complete in {elapsed:.2f} s")
@@ -268,6 +271,7 @@ def run_scan(args):
             / f"section_{args.section}_{args.equilibration_size}x{args.equilibration_size}_equilibration_T{str(args.equilibration_temp).replace('.', 'p')}.png",
             generated
             / f"section_{args.section}_{args.equilibration_size}x{args.equilibration_size}_equilibration_T{str(args.equilibration_temp).replace('.', 'p')}.csv",
+            render=not args.skip_render,
         )
 
     log_path = logs / f"section_{args.section}_temperature_scan_timing.txt"
@@ -285,6 +289,7 @@ def parse_args():
     parser.add_argument("--seed-base", type=int, default=5000)
     parser.add_argument("--equilibration-size", type=int, default=8)
     parser.add_argument("--equilibration-temp", type=float, default=2.3)
+    parser.add_argument("--skip-render", action="store_true")
     return parser.parse_args()
 
 
