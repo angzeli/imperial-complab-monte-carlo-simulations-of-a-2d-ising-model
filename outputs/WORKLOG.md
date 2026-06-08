@@ -125,10 +125,67 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 3: add Monte Carlo simulation evidence`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `5af99120e60313e1e8e8151fb36a4cc441cd6220`
 
 Draft-writing notes:
 - Use the time-series figure to show relaxation into an ordered low-temperature
   state.
 - Explain that a cycle is `N_spins` attempted single-spin moves, so a 250-cycle
   8x8 run contains 16000 trial moves.
+
+## Section 4 - Accelerating the Code
+
+PDF name:
+- `script/4_accelerating_the_code.pdf`
+
+Task labels completed:
+- TASK 4a: recorded timing for the pre-optimisation local path.
+- TASK 4b: confirmed vectorised energy and magnetisation are implemented.
+- TASK 4c: benchmarked vectorised full recomputation.
+- TASK 4d: benchmarked local `delta_energy` Monte Carlo updates.
+
+Code/data/figure files produced:
+- `python_script/IsingLattice.py` uses `np.random.randint` for random spin
+  coordinates and tracks accepted/attempted moves.
+- `python_script/ILbenchmark.py`
+- `outputs/data/processed/section_4_timing.csv`
+- `outputs/figures/section_4_timing_comparison.png`
+- `outputs/logs/section_4_timing_summary.txt`
+- `outputs/logs/section_4_profile_summary.txt`
+- `outputs/logs/section_4_iltimetrial.txt`
+- `outputs/logs/section_4_validation.txt`
+- `outputs/logs/section_4_pytest.xml`
+
+Commands run:
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_4_pytest.xml`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILbenchmark.py`
+- `python3 python_script/ILtimetrial.py`
+
+Key numerical results:
+- Five-repeat benchmark on a 25x25 lattice at `T = 1.0`:
+  - Loop full recomputation: `2.27219194484e-4` s per trial move.
+  - Vectorised full recomputation: `1.26364083961e-5` s per trial move.
+  - Local `delta_energy`: `3.74015006237e-6` s per trial move.
+- In this benchmark, local `delta_energy` was about `3.38x` faster than
+  vectorised full recomputation and about `60.8x` faster than loop full
+  recomputation.
+- `ILtimetrial.py` single-sample continuity check improved from the earlier
+  probe of `0.380205` s for 2000 steps to `0.176372` s after replacing
+  `np.random.choice(range(...))` with `np.random.randint(...)`.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 7 tests passed.
+- Timing CSV has 15 rows, finite positive timings, and all three expected
+  paths.
+- Timing figure and profile summary exist and are non-empty.
+
+Commit reference:
+- Section commit message: `Section 4: benchmark and optimise Monte Carlo updates`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Explain that vectorisation reduces Python-loop overhead for full-lattice
+  calculations.
+- Explain that local `delta_energy` is faster still because a single-spin flip
+  changes only the four neighbouring bonds, avoiding full-lattice energy
+  recomputation.

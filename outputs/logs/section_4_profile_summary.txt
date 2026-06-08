@@ -1,0 +1,28 @@
+         25062 function calls in 0.025 seconds
+
+   Ordered by: cumulative time
+   List reduced from 30 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.025    0.025 ILbenchmark.py:69(local_delta_trial)
+     5000    0.007    0.000    0.024    0.000 IsingLattice.py:35(montecarlostep)
+    10000    0.010    0.000    0.010    0.000 {method 'randint' of 'numpy.random.mtrand.RandomState' objects}
+     5000    0.007    0.000    0.007    0.000 IsingLattice.py:85(delta_energy)
+     5000    0.001    0.000    0.001    0.000 {method 'random' of 'numpy.random.mtrand.RandomState' objects}
+        1    0.000    0.000    0.000    0.000 IsingLattice.py:5(__init__)
+        1    0.000    0.000    0.000    0.000 IsingLattice.py:23(energy)
+        1    0.000    0.000    0.000    0.000 {method 'choice' of 'numpy.random.mtrand.RandomState' objects}
+        2    0.000    0.000    0.000    0.000 numeric.py:1129(roll)
+        5    0.000    0.000    0.000    0.000 fromnumeric.py:71(_wrapreduction)
+        2    0.000    0.000    0.000    0.000 fromnumeric.py:2979(prod)
+        5    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        3    0.000    0.000    0.000    0.000 fromnumeric.py:2177(sum)
+        2    0.000    0.000    0.000    0.000 numeric.py:1330(normalize_axis_tuple)
+        1    0.000    0.000    0.000    0.000 IsingLattice.py:30(magnetisation)
+        5    0.000    0.000    0.000    0.000 fromnumeric.py:72(<dictcomp>)
+        2    0.000    0.000    0.000    0.000 numeric.py:1380(<listcomp>)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        2    0.000    0.000    0.000    0.000 numeric.py:1216(<dictcomp>)
+        1    0.000    0.000    0.000    0.000 IsingLattice.py:67(acceptance_rate)
+
+

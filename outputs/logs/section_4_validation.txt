@@ -1,0 +1,10 @@
+Section 4 validation
+csv_exists: True
+csv_rows: 15
+paths: ['local_delta_energy', 'loop_full_recompute', 'vectorised_full_recompute']
+finite_seconds_per_trial_move: True
+positive_seconds_per_trial_move: True
+figure_exists: True
+figure_bytes: 71235
+profile_exists: True
+profile_bytes: 1857

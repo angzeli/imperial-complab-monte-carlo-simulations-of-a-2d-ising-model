@@ -17,6 +17,8 @@ class IsingLattice:
         self.M2_tally = current_mag**2
 
         self.n_steps = 0
+        self.attempted_moves = 0
+        self.accepted_moves = 0
 
     def energy(self):
         """Return the total energy of the current lattice configuration."""
@@ -36,9 +38,9 @@ class IsingLattice:
         """
         energy = self.current_energy
         magnetisation = self.current_magnetisation
-        # The following two lines will select the coordinates of the random spin for you
-        random_i = np.random.choice(range(0, self.n_rows))
-        random_j = np.random.choice(range(0, self.n_cols))
+        # Select the coordinates of the random spin.
+        random_i = np.random.randint(self.n_rows)
+        random_j = np.random.randint(self.n_cols)
         # The following line will choose for you a random number in the range [0,1)
         random_number = np.random.random()
         spin = self.lattice[random_i, random_j]
@@ -52,13 +54,21 @@ class IsingLattice:
             magnetisation += -2 * spin
             self.current_energy = energy
             self.current_magnetisation = magnetisation
+            self.accepted_moves += 1
 
+        self.attempted_moves += 1
         self.E_tally += energy
         self.E2_tally += energy**2
         self.M_tally += magnetisation
         self.M2_tally += magnetisation**2
         self.n_steps += 1
         return energy, magnetisation
+
+    def acceptance_rate(self):
+        """Return the fraction of attempted moves that have been accepted."""
+        if self.attempted_moves == 0:
+            return 0.0
+        return self.accepted_moves / self.attempted_moves
 
     def statistics(self):
         """Returns the averaged values of energy, energy squared, magnetisation,

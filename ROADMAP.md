@@ -54,4 +54,24 @@ Validation result:
 - `python3 -m pytest python_script`: 7 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 3: add Monte Carlo simulation evidence`.
+- `5af99120e60313e1e8e8151fb36a4cc441cd6220`
+
+## Section 4 - Acceleration
+
+Status: complete.
+
+Objective: benchmark loop, vectorised, and local `delta_energy` Monte Carlo
+update paths.
+
+Main outputs:
+- `python_script/ILbenchmark.py`
+- `outputs/data/processed/section_4_timing.csv`
+- `outputs/figures/section_4_timing_comparison.png`
+- `outputs/logs/section_4_profile_summary.txt`
+
+Validation result:
+- Timing CSV is finite and positive for all three paths.
+- `python3 -m pytest python_script`: 7 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 4: benchmark and optimise Monte Carlo updates`.

@@ -1,0 +1,4 @@
+Section 4 ILtimetrial continuity check
+pre_patch_probe_seconds_for_2000_steps: 0.3802050000000001
+post_patch_seconds_for_2000_steps: 0.1763720000000002
+notes: single ILtimetrial samples are noisy; section_4_timing.csv reports five-repeat path comparison using perf_counter.

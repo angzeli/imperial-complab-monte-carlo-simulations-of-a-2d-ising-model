@@ -1,0 +1,8 @@
+Section 4 timing summary
+seed_base: 4004
+lattice: 25x25
+temperature: 1.0
+path,mean_seconds_per_trial_move,std_seconds_per_trial_move
+loop_full_recompute,0.000227219194484,4.23626615383e-06
+vectorised_full_recompute,1.26364083961e-05,7.10763620644e-08
+local_delta_energy,3.74015006237e-06,1.51478579182e-07
