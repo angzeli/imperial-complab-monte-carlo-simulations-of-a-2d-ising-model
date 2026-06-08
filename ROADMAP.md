@@ -35,4 +35,23 @@ Validation result:
 - `python3 -m pytest python_script`: 7 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 2: validate energy and magnetisation`.
+- `56a694a96aa7e4c6352a4950cdf7f6033b830108`
+
+## Section 3 - Monte Carlo Simulation
+
+Status: complete.
+
+Objective: verify Metropolis spin flips and running statistics with
+low-temperature equilibrium evidence.
+
+Main outputs:
+- `outputs/data/generated/section_3_low_temperature_timeseries.csv`
+- `outputs/figures/section_3_low_temperature_equilibrium.png`
+- `outputs/logs/section_3_statistics.txt`
+
+Validation result:
+- Cached final energy and magnetisation matched full recomputation.
+- `python3 -m pytest python_script`: 7 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 3: add Monte Carlo simulation evidence`.

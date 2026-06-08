@@ -79,10 +79,56 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 2: validate energy and magnetisation`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `56a694a96aa7e4c6352a4950cdf7f6033b830108`
 
 Draft-writing notes:
 - Include the saved ILcheck figure as evidence that the periodic-boundary
   energy and magnetisation match known limiting cases.
 - Briefly describe the energy as nearest-neighbour products counted once in
   each lattice direction.
+
+## Section 3 - Introduction to Monte Carlo Simulation
+
+PDF name:
+- `script/3_introduction_to_monte_carlo_simulation.pdf`
+
+Task labels completed:
+- TASK 3a: noted the infeasibility of exhaustive enumeration for 100 spins.
+- TASK 3b: verified Metropolis trial moves and running statistics.
+- TASK 3c: generated low-temperature equilibrium evidence at `T = 1.0`.
+
+Code/data/figure files produced:
+- `outputs/data/generated/section_3_low_temperature_timeseries.csv`
+- `outputs/figures/section_3_low_temperature_equilibrium.png`
+- `outputs/logs/section_3_statistics.txt`
+- `outputs/logs/section_3_validation.txt`
+- `outputs/logs/section_3_pytest.xml`
+
+Commands run:
+- Generated a deterministic 8x8 run with seed `3003`, `T = 1.0`, and
+  `250` Monte Carlo cycles (`16000` attempted spin flips).
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_3_pytest.xml`
+
+Key numerical results:
+- Number of configurations for 100 spins: `2^100 = 1.27e30`; at `1e9`
+  configurations per second this is about `4.02e13` years.
+- Low-temperature run: final `E/spin = -2.0`, final `M/spin = 1.0`.
+- Running averages: `<E>/spin = -1.973318073870383`,
+  `<M>/spin = 0.9842373132929192`.
+- Cached final energy and magnetisation matched full recomputation.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 7 tests passed.
+- Generated CSV has 3 columns, finite values, and strictly increasing cycle
+  index.
+- Figure exists and is non-empty (`81271` bytes).
+
+Commit reference:
+- Section commit message: `Section 3: add Monte Carlo simulation evidence`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Use the time-series figure to show relaxation into an ordered low-temperature
+  state.
+- Explain that a cycle is `N_spins` attempted single-spin moves, so a 250-cycle
+  8x8 run contains 16000 trial moves.

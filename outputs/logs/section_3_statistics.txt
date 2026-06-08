@@ -1,0 +1,15 @@
+seed: 3003
+lattice: 8x8
+temperature: 1.0
+cycles: 250
+steps: 16000
+statistics_steps: 16000
+average_E_per_spin: -1.973318073870383
+average_E2_per_spin2: 3.917491240781826
+average_M_per_spin: 0.9842373132929192
+average_M2_per_spin2: 0.9778191963588213
+final_E_per_spin: -2.0
+final_M_per_spin: 1.0
+recomputed_final_E: -128.0
+recomputed_final_M: 64.0
+cache_matches_recompute: True

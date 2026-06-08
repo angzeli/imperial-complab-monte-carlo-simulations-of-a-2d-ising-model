@@ -1,0 +1,7 @@
+Section 3 validation
+raw_exists: True
+raw_columns: 3
+finite_values: True
+cycles_sorted: True
+figure_exists: True
+figure_bytes: 81271
