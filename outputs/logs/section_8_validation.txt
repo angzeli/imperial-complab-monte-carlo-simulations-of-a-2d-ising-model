@@ -1,0 +1,18 @@
+Section 8 validation
+peak_table_exists: True
+peak_rows: 20
+finite_peak_values: True
+peaks_within_windows: True
+scaling_table_exists: True
+scaling_rows: 4
+finite_scaling_values: True
+section_8_8x8_own_vs_reference.png_exists: True
+section_8_8x8_own_vs_reference.png_bytes: 159624
+section_8_reference_comparison_heat_capacity_all_sizes.png_exists: True
+section_8_reference_comparison_heat_capacity_all_sizes.png_bytes: 231044
+section_8_32x32_peak_fits.png_exists: True
+section_8_32x32_peak_fits.png_bytes: 169160
+section_8_curie_scaling.png_exists: True
+section_8_curie_scaling.png_bytes: 79466
+reference_C_Tc_infinite: 2.27591948148
+reference_C_fit_minus_exact: 0.00673416726685

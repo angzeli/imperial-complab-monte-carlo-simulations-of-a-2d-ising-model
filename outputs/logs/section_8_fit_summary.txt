@@ -1,0 +1,7 @@
+Section 8 fit summary
+exact_Tc: 2.269185314213
+source,observable,Tc_infinite_fit,fit_minus_exact
+own,C,2.07924940731,-0.189935906901
+own,chi,2.46223981556,0.193054501347
+reference,C,2.27591948148,0.00673416726685
+reference,chi,2.44542814886,0.176242834644

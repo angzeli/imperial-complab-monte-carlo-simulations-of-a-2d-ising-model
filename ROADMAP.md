@@ -137,4 +137,28 @@ Validation result:
 - `python3 -m pytest python_script`: 9 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 7: compute heat capacity and susceptibility`.
+- `cee120ee53c62cf58017f9f3605ede9cb80e8489`
+
+## Section 8 - Curie Temperature
+
+Status: complete.
+
+Objective: compare own/reference data, fit response-function peaks, and
+estimate the infinite-size Curie temperature.
+
+Main outputs:
+- `outputs/data/processed/section_8_peak_table.csv`
+- `outputs/data/processed/section_8_scaling_fit.csv`
+- `outputs/figures/section_8_8x8_own_vs_reference.png`
+- `outputs/figures/section_8_32x32_peak_fits.png`
+- `outputs/figures/section_8_curie_scaling.png`
+
+Validation result:
+- Peak and scaling tables are finite; fitted peaks fall within selected
+  critical windows.
+- Reference heat-capacity scaling gives `T_C,infty = 2.27591948148`, compared
+  with exact `2.269185314213`.
+- `python3 -m pytest python_script`: 9 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 8: estimate Curie temperature`.

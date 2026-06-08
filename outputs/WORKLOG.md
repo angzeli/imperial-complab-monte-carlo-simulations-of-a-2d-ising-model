@@ -354,9 +354,70 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 7: compute heat capacity and susceptibility`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `cee120ee53c62cf58017f9f3605ede9cb80e8489`
 
 Draft-writing notes:
 - Derive `C_per_spin = (<E^2> - <E>^2) / (N T^2)` with `k_B = 1`.
 - Derive `chi_per_spin = (<M^2> - <M>^2) / (N T)`.
 - Note that finite simulation noise is largest near the response peaks.
+
+## Section 8 - Locating the Curie Temperature
+
+PDF name:
+- `script/8_locating_the_curie_temperature.pdf`
+
+Task labels completed:
+- TASK 8a: compared own data against reference data.
+- TASK 8b: fitted polynomial response-function peaks.
+- TASK 8c: restricted fits to critical-temperature windows.
+- TASK 8d: estimated finite-size `T_C,L` values and extrapolated against
+  `1/L`.
+
+Code/data/figure files produced:
+- `python_script/ILcurie_analysis.py`
+- `outputs/data/processed/section_8_peak_table.csv`
+- `outputs/data/processed/section_8_scaling_fit.csv`
+- `outputs/figures/section_8_8x8_own_vs_reference.png`
+- `outputs/figures/section_8_reference_comparison_heat_capacity_all_sizes.png`
+- `outputs/figures/section_8_32x32_peak_fits.png`
+- `outputs/figures/section_8_curie_scaling.png`
+- `outputs/logs/section_8_fit_summary.txt`
+- `outputs/logs/section_8_validation.txt`
+- `outputs/logs/section_8_pytest.xml`
+
+Commands run:
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_8_pytest.xml`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILcurie_analysis.py --sizes 2 4 8 16 32 --scaling-sizes 4 8 16 32 --degree 4`
+
+Key numerical results:
+- Exact infinite-lattice value:
+  `T_C = 2 / ln(1 + sqrt(2)) = 2.269185314213`.
+- Finite-size scaling used `L = 4, 8, 16, 32`.
+- Own heat-capacity scaling fit: `T_C,infty = 2.07924940731`
+  (`-0.189935906901` below exact).
+- Own susceptibility scaling fit: `T_C,infty = 2.46223981556`
+  (`+0.193054501347` above exact).
+- Reference heat-capacity scaling fit: `T_C,infty = 2.27591948148`
+  (`+0.00673416726685` above exact).
+- Reference susceptibility scaling fit: `T_C,infty = 2.44542814886`
+  (`+0.176242834644` above exact).
+
+Validation outcome:
+- `python3 -m pytest python_script`: 9 tests passed.
+- Peak table has 20 rows; all fitted peak temperatures are finite and within
+  their selected fit windows.
+- Scaling table has four finite fits.
+- Comparison, peak-fit, and scaling figures exist and are non-empty.
+
+Commit reference:
+- Section commit message: `Section 8: estimate Curie temperature`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Use the reference heat-capacity scaling fit as the strongest final numerical
+  estimate because it is based on longer simulations and agrees within about
+  `0.007` temperature units of the exact result.
+- Discuss the own-data discrepancy as finite sampling noise, short production
+  runs, coarse peak windows, and finite-size effects.
+- Mention that susceptibility peaks are noisier in these runs and provide a
+  less accurate extrapolation than heat-capacity peaks.
