@@ -1,0 +1,18 @@
+Section 7 validation
+table_exists: True
+table_rows: 120
+sizes: [2, 4, 8, 16, 32]
+finite_C: True
+finite_chi: True
+C_nonnegative: True
+chi_nonnegative: True
+section_7_heat_capacity_by_size.png_exists: True
+section_7_heat_capacity_by_size.png_bytes: 154892
+section_7_susceptibility_by_size.png_exists: True
+section_7_susceptibility_by_size.png_bytes: 130757
+peak_summary:L,C_peak_T,C_peak,chi_peak_T,chi_peak
+2,2.4,0.45775334362139913,1.5,2.451123765432099
+4,2.2,0.8645331511134072,2.1,4.124518068989748
+8,2.4,1.1672682499975673,2.4,11.661105377980101
+16,2.2,1.3054256894984675,2.5,13.961747651388029
+32,2.2,1.3912385614633962,2.5,12.311175955342376

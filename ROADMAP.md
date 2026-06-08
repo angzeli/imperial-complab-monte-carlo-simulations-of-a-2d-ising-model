@@ -116,4 +116,25 @@ Validation result:
 - `python3 -m pytest python_script`: 9 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 6: analyse system size effects`.
+- `73597fca6df73f6bd08d69f933fd6962c3891580`
+
+## Section 7 - Response Functions
+
+Status: complete.
+
+Objective: compute and plot heat capacity and susceptibility per spin from
+variance formulas.
+
+Main outputs:
+- `outputs/data/processed/section_7_response_functions.csv`
+- `outputs/figures/section_7_heat_capacity_by_size.png`
+- `outputs/figures/section_7_susceptibility_by_size.png`
+- `outputs/notes/section_7_response_formula.md`
+
+Validation result:
+- Response-function table is finite and non-negative for `C` and
+  susceptibility.
+- `python3 -m pytest python_script`: 9 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 7: compute heat capacity and susceptibility`.

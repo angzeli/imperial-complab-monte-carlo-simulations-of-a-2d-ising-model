@@ -308,9 +308,55 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 6: analyse system size effects`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `73597fca6df73f6bd08d69f933fd6962c3891580`
 
 Draft-writing notes:
 - Emphasise that the transition sharpens with lattice size.
 - The small 2x2 lattice is visibly too small to capture long-range
   correlations; larger lattices retain stronger order near the critical region.
+
+## Section 7 - Determining the Heat Capacity
+
+PDF name:
+- `script/7_determining_the_heat_capacity.pdf`
+
+Task labels completed:
+- TASK 7a: recorded the variance formula for heat capacity.
+- TASK 7b: generated heat-capacity and susceptibility plots for all lattice
+  sizes.
+
+Code/data/figure files produced:
+- `python_script/ILresponse_analysis.py`
+- `outputs/notes/section_7_response_formula.md`
+- `outputs/data/processed/section_7_response_functions.csv`
+- `outputs/figures/section_7_heat_capacity_by_size.png`
+- `outputs/figures/section_7_susceptibility_by_size.png`
+- `outputs/logs/section_7_validation.txt`
+- `outputs/logs/section_7_pytest.xml`
+
+Commands run:
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_7_pytest.xml`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILresponse_analysis.py --sizes 2 4 8 16 32`
+
+Key numerical results:
+- Peak summary from own data:
+  - `2x2`: `C` peak at `T = 2.4`, susceptibility peak at `T = 1.5`.
+  - `4x4`: `C` peak at `T = 2.2`, susceptibility peak at `T = 2.1`.
+  - `8x8`: `C` peak at `T = 2.4`, susceptibility peak at `T = 2.4`.
+  - `16x16`: `C` peak at `T = 2.2`, susceptibility peak at `T = 2.5`.
+  - `32x32`: `C` peak at `T = 2.2`, susceptibility peak at `T = 2.5`.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 9 tests passed.
+- Response-function table has 120 rows, finite heat capacity and
+  susceptibility, and non-negative variance-derived values.
+- Heat-capacity and susceptibility figures exist and are non-empty.
+
+Commit reference:
+- Section commit message: `Section 7: compute heat capacity and susceptibility`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Derive `C_per_spin = (<E^2> - <E>^2) / (N T^2)` with `k_B = 1`.
+- Derive `chi_per_spin = (<M^2> - <M>^2) / (N T)`.
+- Note that finite simulation noise is largest near the response peaks.
