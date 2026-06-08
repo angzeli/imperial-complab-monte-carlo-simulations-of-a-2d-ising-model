@@ -2,23 +2,20 @@ import numpy as np
 
 
 class IsingLattice:
-    def __init__(self, n_rows, n_cols):
+    def __init__(self, n_rows, n_cols, burn_in_cycles=0):
         self.n_rows = n_rows
         self.n_cols = n_cols
         self.lattice = np.random.choice([-1, 1], size=(n_rows, n_cols))
+        self.burn_in_cycles = burn_in_cycles
+        self.burn_in_steps = int(burn_in_cycles * n_rows * n_cols)
+        self.total_steps = 0
 
         current_en = self.energy()
         current_mag = self.magnetisation()
 
-        # Running sums
-        self.E_tally = current_en
-        self.E2_tally = current_en**2
-        self.M_tally = current_mag
-        self.M2_tally = current_mag**2
-
-        self.n_steps = 0
         self.attempted_moves = 0
         self.accepted_moves = 0
+        self.reset_statistics(include_current=self.burn_in_steps == 0)
 
     def energy(self):
         """Return the total energy of the current lattice configuration."""
@@ -57,11 +54,13 @@ class IsingLattice:
             self.accepted_moves += 1
 
         self.attempted_moves += 1
-        self.E_tally += energy
-        self.E2_tally += energy**2
-        self.M_tally += magnetisation
-        self.M2_tally += magnetisation**2
-        self.n_steps += 1
+        self.total_steps += 1
+        if self.total_steps > self.burn_in_steps:
+            self.E_tally += energy
+            self.E2_tally += energy**2
+            self.M_tally += magnetisation
+            self.M2_tally += magnetisation**2
+            self.n_steps += 1
         return energy, magnetisation
 
     def acceptance_rate(self):
@@ -70,10 +69,31 @@ class IsingLattice:
             return 0.0
         return self.accepted_moves / self.attempted_moves
 
+    def reset_statistics(self, include_current=True):
+        """Reset running statistics, optionally including the current state."""
+        if include_current:
+            current_en = self.current_energy
+            current_mag = self.current_magnetisation
+            self.E_tally = current_en
+            self.E2_tally = current_en**2
+            self.M_tally = current_mag
+            self.M2_tally = current_mag**2
+            self.n_steps = 0
+            self._initial_sample_included = True
+        else:
+            self.E_tally = 0.0
+            self.E2_tally = 0.0
+            self.M_tally = 0.0
+            self.M2_tally = 0.0
+            self.n_steps = 0
+            self._initial_sample_included = False
+
     def statistics(self):
         """Returns the averaged values of energy, energy squared, magnetisation,
         magnetisation squared, and the current step, in this order."""
-        n_samples = self.n_steps + 1
+        n_samples = self.n_steps + int(self._initial_sample_included)
+        if n_samples == 0:
+            return (0.0, 0.0, 0.0, 0.0, self.n_steps)
         return (
             self.E_tally / n_samples,
             self.E2_tally / n_samples,

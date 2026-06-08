@@ -1,0 +1,17 @@
+Section 5 validation
+dat_exists: True
+dat_shape: (24, 6)
+dat_finite: True
+dat_temperature_sorted: True
+dat_temperature_min: 0.25
+dat_temperature_max: 5
+repeat_rows: 144
+summary_rows: 24
+C_nonnegative: True
+chi_nonnegative: True
+acceptance_min: 0
+acceptance_max: 0.692046875
+section_5_8x8_temperature_dependence.png_exists: True
+section_5_8x8_temperature_dependence.png_bytes: 134032
+section_5_8x8_equilibration_T2p3.png_exists: True
+section_5_8x8_equilibration_T2p3.png_bytes: 230408

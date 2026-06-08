@@ -181,7 +181,7 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 4: benchmark and optimise Monte Carlo updates`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `253677e8d138f9d80ef6889f30be422ba8b28d24`
 
 Draft-writing notes:
 - Explain that vectorisation reduces Python-loop overhead for full-lattice
@@ -189,3 +189,61 @@ Draft-writing notes:
 - Explain that local `delta_energy` is faster still because a single-spin flip
   changes only the four neighbouring bonds, avoiding full-lattice energy
   recomputation.
+
+## Section 5 - The Effect of Temperature
+
+PDF name:
+- `script/5_effect_of_temperature.pdf`
+
+Task labels completed:
+- TASK 5a: added burn-in support and generated equilibration evidence.
+- TASK 5b: generated 8x8 temperature dependence data with repeats and error
+  bars.
+
+Code/data/figure files produced:
+- `python_script/IsingLattice.py` now accepts optional `burn_in_cycles` and has
+  `reset_statistics(include_current=True)`.
+- `python_script/ILtemperature_scan.py`
+- `python_script/test_energy.py` includes burn-in/reset tests.
+- `outputs/data/generated/8x8.dat`
+- `outputs/data/generated/8x8_repeats.csv`
+- `outputs/data/generated/section_5_8x8_equilibration_T2p3.csv`
+- `outputs/data/processed/8x8_summary.csv`
+- `outputs/figures/section_5_8x8_temperature_dependence.png`
+- `outputs/figures/section_5_8x8_equilibration_T2p3.png`
+- `outputs/logs/section_5_temperature_scan_timing.txt`
+- `outputs/logs/section_5_validation.txt`
+- `outputs/logs/section_5_pytest.xml`
+
+Commands run:
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_5_pytest.xml`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILtemperature_scan.py --section 5 --sizes 8 --repeats 6 --burn-in-cycles 300 --production-cycles 700 --seed-base 5000 --equilibration-size 8 --equilibration-temp 2.3`
+
+Key numerical results:
+- Temperature grid: 24 points from `0.25` to `5.0`, with `0.1` spacing in the
+  critical-region interval `1.8 <= T <= 2.8`.
+- 8x8 scan: 6 repeats, 300 burn-in cycles, 700 production cycles per repeat.
+- Own-data heat-capacity peak: `T = 2.4`, `C/spin = 1.1672682499975673`.
+- Own-data susceptibility peak: `T = 2.4`,
+  `chi/spin = 11.661105377980101`.
+- At `T = 2.3`, `<E>/spin = -1.4596254185267856`,
+  `|<M>|/spin = 0.6125906808035714`, and mean acceptance rate is
+  `0.18488802083333333`.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 9 tests passed.
+- `8x8.dat` has shape `(24, 6)`, finite values, sorted temperatures, and
+  non-negative heat capacity.
+- Rich CSV summaries include repeat index, standard errors, absolute
+  magnetisation, susceptibility, acceptance rate, burn-in cycles, production
+  cycles, and random seed.
+- Temperature-dependence and equilibration figures exist and are non-empty.
+
+Commit reference:
+- Section commit message: `Section 5: generate temperature dependence data`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Use the equilibration figure to justify ignoring the first 300 cycles.
+- Use the temperature-dependence figure to describe the energy rise and
+  magnetisation loss through the transition region.

@@ -95,6 +95,37 @@ def test_random():
     assert en == il.energy()
 
 
+def test_burn_in_cycles_are_ignored():
+    np.random.seed(123)
+    il = IsingLattice(2, 2, burn_in_cycles=1)
+
+    for _ in range(4):
+        il.montecarlostep(1.0)
+
+    assert il.statistics() == (0.0, 0.0, 0.0, 0.0, 0)
+
+    il.montecarlostep(1.0)
+
+    assert il.statistics()[-1] == 1
+
+
+def test_reset_statistics_includes_current_state():
+    n = 4
+    il = IsingLattice(n, n)
+    il.lattice = np.ones((n, n))
+    il.energy()
+    il.magnetisation()
+    il.reset_statistics()
+
+    aveE, aveE2, aveM, aveM2, n_steps = il.statistics()
+
+    assert aveE == -2 * n**2
+    assert aveE2 == (-2 * n**2) ** 2
+    assert aveM == n**2
+    assert aveM2 == n**4
+    assert n_steps == 0
+
+
 def delta_energy(il, i, j):
     "Return the change in energy if the spin at (i,j) is flipped."
     return (

@@ -1,0 +1,9 @@
+Temperature scan timing log
+sizes: [8]
+temperatures: 24
+temperature_min: 0.25
+temperature_max: 5.0
+repeats: 6
+burn_in_cycles: 300
+production_cycles: 700
+8x8_elapsed_seconds: 27.362297

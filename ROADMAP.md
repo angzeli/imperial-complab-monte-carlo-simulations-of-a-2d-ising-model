@@ -74,4 +74,25 @@ Validation result:
 - `python3 -m pytest python_script`: 7 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 4: benchmark and optimise Monte Carlo updates`.
+- `253677e8d138f9d80ef6889f30be422ba8b28d24`
+
+## Section 5 - Temperature Dependence
+
+Status: complete.
+
+Objective: add burn-in-aware statistics and generate 8x8 temperature scans with
+repeats and error bars.
+
+Main outputs:
+- `python_script/ILtemperature_scan.py`
+- `outputs/data/generated/8x8.dat`
+- `outputs/data/generated/8x8_repeats.csv`
+- `outputs/data/processed/8x8_summary.csv`
+- `outputs/figures/section_5_8x8_temperature_dependence.png`
+
+Validation result:
+- `8x8.dat` is finite, sorted by temperature, and six-column compatible.
+- `python3 -m pytest python_script`: 9 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 5: generate temperature dependence data`.
