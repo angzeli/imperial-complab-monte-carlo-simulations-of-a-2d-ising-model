@@ -37,9 +37,52 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 1: add Ising model background notes`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `201091265a34f90890027bdda5680e5d1163db90`
 
 Draft-writing notes:
 - Use the background note as the report opening.
 - Emphasise finite-size peak temperatures as estimates rather than true
   thermodynamic-limit transitions.
+
+## Section 2 - Calculating the Energy and Magnetisation
+
+PDF name:
+- `script/2_calculating_the_energy_and_magnetisation.pdf`
+
+Task labels completed:
+- TASK 2a: verified `energy()` and `magnetisation()`.
+- TASK 2b: ran `ILcheck.py` non-interactively and ran pytest.
+
+Code/data/figure files produced:
+- `python_script/ILcheck.py` now supports optional figure export through
+  `ISING_OUTPUT_FIGURE`.
+- `outputs/figures/section_2_energy_magnetisation_check.png`
+- `outputs/logs/section_2_validation.txt`
+- `outputs/logs/section_2_pytest.xml`
+
+Commands run:
+- `env MPLBACKEND=Agg ISING_OUTPUT_FIGURE=outputs/figures/section_2_energy_magnetisation_check.png python3 python_script/ILcheck.py`
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_2_pytest.xml`
+- Generated expected-vs-actual validation log with deterministic lattice cases.
+
+Key numerical results:
+- 4x4 all-up state: expected `E = -32`, actual `E = -32`, expected `M = 16`,
+  actual `M = 16`.
+- 4x4 all-down state: expected `E = -32`, actual `E = -32`, expected
+  `M = -16`, actual `M = -16`.
+- 4x4 checkerboard state: expected `E = 32`, actual `E = 32`, expected
+  `M = 0`, actual `M = 0`.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 7 tests passed.
+- Figure exists and is non-empty (`39051` bytes).
+
+Commit reference:
+- Section commit message: `Section 2: validate energy and magnetisation`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Include the saved ILcheck figure as evidence that the periodic-boundary
+  energy and magnetisation match known limiting cases.
+- Briefly describe the energy as nearest-neighbour products counted once in
+  each lattice direction.

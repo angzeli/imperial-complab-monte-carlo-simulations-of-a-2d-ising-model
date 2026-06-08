@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import IsingLattice as il
+import os
 
 
 #first do some setting up of the plots
@@ -64,5 +65,10 @@ middle_figure.text(0, 4.4, "Actual E = {}".format(actual_energy))
 middle_figure.text(0, 4.8, "Expected M = {}".format(target_magnetisation))
 middle_figure.text(0, 5.2, "Actual M = {}".format(actual_magnetisation))
 
-#draw the whole figure on the screen
-plt.show()
+#draw the whole figure on the screen, or save it for non-interactive checks
+output_figure = os.environ.get("ISING_OUTPUT_FIGURE")
+if output_figure:
+    fig.savefig(output_figure, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+else:
+    plt.show()

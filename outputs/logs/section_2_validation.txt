@@ -1,0 +1,8 @@
+Section 2 energy/magnetisation validation
+lattice_size=4x4
+case,expected_E,actual_E,expected_M,actual_M,pass
+all_up_minimum,-32.0,-32.0,16,16.0,True
+all_down_minimum,-32.0,-32.0,-16,-16.0,True
+checkerboard_maximum,32.0,32.0,0.0,0.0,True
+figure_exists,True
+figure_bytes,39051
