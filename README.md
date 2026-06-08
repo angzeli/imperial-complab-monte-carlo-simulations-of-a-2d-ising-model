@@ -18,11 +18,14 @@ peak.
 │   ├── ILcheck.py               # Energy and magnetisation visual checks
 │   ├── ILfinalframe.py          # Final lattice and time-series plots
 │   ├── ILanim.py                # Animated lattice, energy, and magnetisation
+│   ├── ILprofile.py             # cProfile timing helper
+│   ├── ILtimetrial.py           # Simple timing helper
 │   ├── ILtemperaturerange.py    # Temperature sweep and heat capacity analysis
 │   └── test_energy.py           # Pytest checks for core lattice behaviour
 ├── reference_data/              # Reference temperature-sweep data
 ├── Introduction.pdf
 ├── script.pdf
+├── .gitignore
 ├── README.md
 └── LICENSE
 ```
@@ -48,6 +51,9 @@ Run the temperature sweep:
 ```bash
 python3 python_script/ILtemperaturerange.py
 ```
+
+This writes a root-level `8x8.dat` output for the current script settings. The
+reference datasets in `reference_data/` remain tracked.
 
 The scripts use reduced units with `J = 1` and `k_B = 1`.
 
