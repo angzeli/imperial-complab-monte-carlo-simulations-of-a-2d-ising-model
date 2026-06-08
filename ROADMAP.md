@@ -95,4 +95,25 @@ Validation result:
 - `python3 -m pytest python_script`: 9 passed.
 
 Commit hash:
-- Assigned by Git in commit `Section 5: generate temperature dependence data`.
+- `f227978d3e53c95dce2b46d97cb46f9c381f22f1`
+
+## Section 6 - System Size
+
+Status: complete.
+
+Objective: generate own data for all assignment lattice sizes and compare
+energy and magnetisation trends across size.
+
+Main outputs:
+- `outputs/data/generated/{2x2,4x4,8x8,16x16,32x32}.dat`
+- `outputs/data/processed/section_6_size_effects_table.csv`
+- `outputs/figures/section_6_energy_vs_temperature_by_size.png`
+- `outputs/figures/section_6_magnetisation_vs_temperature_by_size.png`
+
+Validation result:
+- All own `.dat` files are finite, sorted, six-column compatible, and have
+  non-negative heat capacity.
+- `python3 -m pytest python_script`: 9 passed.
+
+Commit hash:
+- Assigned by Git in commit `Section 6: analyse system size effects`.

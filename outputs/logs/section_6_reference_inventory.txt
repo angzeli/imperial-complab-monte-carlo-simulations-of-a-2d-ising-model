@@ -1,0 +1,6 @@
+Section 6 reference-data inventory
+2x2: rows=226, columns=6, T_min=0.5, T_max=5
+4x4: rows=226, columns=6, T_min=0.5, T_max=5
+8x8: rows=226, columns=6, T_min=0.5, T_max=5
+16x16: rows=451, columns=6, T_min=0.5, T_max=5
+32x32: rows=451, columns=6, T_min=0.5, T_max=5

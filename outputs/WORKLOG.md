@@ -241,9 +241,76 @@ Validation outcome:
 
 Commit reference:
 - Section commit message: `Section 5: generate temperature dependence data`
-- Commit hash: assigned by Git when this section entry is committed.
+- Commit hash: `f227978d3e53c95dce2b46d97cb46f9c381f22f1`
 
 Draft-writing notes:
 - Use the equilibration figure to justify ignoring the first 300 cycles.
 - Use the temperature-dependence figure to describe the energy rise and
   magnetisation loss through the transition region.
+
+## Section 6 - The Effect of System Size
+
+PDF name:
+- `script/6_effect_of_system_size.pdf`
+
+Task labels completed:
+- TASK 6: generated or collected own temperature-scan data for `2x2`, `4x4`,
+  `8x8`, `16x16`, and `32x32`; plotted energy and magnetisation versus
+  temperature for each size.
+
+Code/data/figure files produced:
+- `python_script/ILsystem_size_analysis.py`
+- New own-data files:
+  - `outputs/data/generated/2x2.dat`
+  - `outputs/data/generated/4x4.dat`
+  - `outputs/data/generated/16x16.dat`
+  - `outputs/data/generated/32x32.dat`
+  - repeat CSVs and processed summaries for `2x2`, `4x4`, `16x16`, `32x32`
+- Reused own 8x8 data from Section 5:
+  - `outputs/data/generated/8x8.dat`
+  - `outputs/data/processed/8x8_summary.csv`
+- `outputs/data/processed/section_6_size_effects_table.csv`
+- `outputs/figures/section_6_energy_vs_temperature_by_size.png`
+- `outputs/figures/section_6_magnetisation_vs_temperature_by_size.png`
+- Individual Section 6 temperature-dependence figures for `2x2`, `4x4`,
+  `16x16`, and `32x32`
+- `outputs/logs/section_6_temperature_scan_timing.txt`
+- `outputs/logs/section_6_reference_inventory.txt`
+- `outputs/logs/section_6_validation.txt`
+- `outputs/logs/section_6_pytest.xml`
+
+Commands run:
+- `python3 -m pytest python_script --junitxml=outputs/logs/section_6_pytest.xml`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILtemperature_scan.py --section 6 --sizes 2 4 16 32 --repeats 3 --burn-in-cycles 100 --production-cycles 300 --seed-base 6000 --equilibration-size 0`
+- `env MPLBACKEND=Agg MPLCONFIGDIR=/private/tmp/ising_mpl python3 python_script/ILsystem_size_analysis.py --sizes 2 4 8 16 32`
+
+Key numerical results:
+- Own-data scan timings:
+  - `2x2`: `0.600335` s
+  - `4x4`: `1.592313` s
+  - `16x16`: `22.745570` s
+  - `32x32`: `90.762074` s
+- Near `T = 2.3`, own-data `|M|/spin` values were:
+  - `2x2`: `0.18458333333333332`
+  - `4x4`: `0.5278211805555556`
+  - `8x8`: `0.6125906808035714`
+  - `16x16`: `0.6476262410481771`
+  - `32x32`: `0.6426761711968316`
+- Reference data are available for all five assignment sizes and are logged as
+  long-run comparison support.
+
+Validation outcome:
+- `python3 -m pytest python_script`: 9 tests passed.
+- All five own-data `.dat` files have shape `(24, 6)`, finite values, sorted
+  temperatures, and non-negative heat capacity.
+- Compiled system-size table has 120 rows.
+- Cross-size energy and magnetisation figures exist and are non-empty.
+
+Commit reference:
+- Section commit message: `Section 6: analyse system size effects`
+- Commit hash: assigned by Git when this section entry is committed.
+
+Draft-writing notes:
+- Emphasise that the transition sharpens with lattice size.
+- The small 2x2 lattice is visibly too small to capture long-range
+  correlations; larger lattices retain stronger order near the critical region.

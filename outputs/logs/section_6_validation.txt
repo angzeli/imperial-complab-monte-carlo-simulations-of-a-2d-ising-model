@@ -1,0 +1,32 @@
+Section 6 validation
+2x2_dat_exists: True
+2x2_dat_shape: (24, 6)
+2x2_finite: True
+2x2_temperature_sorted: True
+2x2_C_nonnegative: True
+4x4_dat_exists: True
+4x4_dat_shape: (24, 6)
+4x4_finite: True
+4x4_temperature_sorted: True
+4x4_C_nonnegative: True
+8x8_dat_exists: True
+8x8_dat_shape: (24, 6)
+8x8_finite: True
+8x8_temperature_sorted: True
+8x8_C_nonnegative: True
+16x16_dat_exists: True
+16x16_dat_shape: (24, 6)
+16x16_finite: True
+16x16_temperature_sorted: True
+16x16_C_nonnegative: True
+32x32_dat_exists: True
+32x32_dat_shape: (24, 6)
+32x32_finite: True
+32x32_temperature_sorted: True
+32x32_C_nonnegative: True
+section_6_energy_vs_temperature_by_size.png_exists: True
+section_6_energy_vs_temperature_by_size.png_bytes: 116784
+section_6_magnetisation_vs_temperature_by_size.png_exists: True
+section_6_magnetisation_vs_temperature_by_size.png_bytes: 142692
+compiled_rows: 120
+compiled_sizes: ['16', '2', '32', '4', '8']
